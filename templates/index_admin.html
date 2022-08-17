@@ -1,0 +1,155 @@
+{% extends 'adminbase.html' %}
+
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <div class="content-header sty-one">
+      <h1>Dashboard</h1>
+      <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li><i class="fa fa-angle-right"></i> Dashboard</li>
+      </ol>
+    </div>
+    
+    <!-- Main content -->
+    <div class="content"> 
+      <!-- Small boxes (Stat box) -->
+      <div class="row">
+        <div class="col-lg-3 col-sm-6 col-xs-12">
+          <div class="info-box bg-darkblue"> <span class="info-box-icon bg-transparent"><i class="ti-stats-up text-white"></i></span>
+            <div class="info-box-content">
+              <h6 class="info-box-text text-white">Cash on delivery</h6>
+              <h1 class="text-white">₹{{codtotal}}</h1>
+              <span class="progress-description text-white"> </span> </div>
+            <!-- /.info-box-content --> 
+          </div>
+          <!-- /.info-box --> 
+        </div>
+        <!-- /.col -->
+        <div class="col-lg-3 col-sm-6 col-xs-12">
+          <div class="info-box bg-green text-white"> <span class="info-box-icon bg-transparent"><i class="ti-face-smile"></i></span>
+            <div class="info-box-content">
+              <h6 class="info-box-text text-white">Paypal</h6>
+              <h1 class="text-white">₹{{paytotal}}</h1>
+              <span class="progress-description text-white"> 45% Increase in 30 Days </span> </div>
+            <!-- /.info-box-content --> 
+          </div>
+          <!-- /.info-box --> 
+        </div>
+        <!-- /.col -->
+        <div class="col-lg-3 col-sm-6 col-xs-12">
+          <div class="info-box bg-aqua"> <span class="info-box-icon bg-transparent"><i class="ti-bar-chart"></i></span>
+            <div class="info-box-content">
+              <h6 class="info-box-text text-white">Razorpay</h6>
+              <h1 class="text-white">₹{{raztotal}}</h1>
+              <span class="progress-description text-white"> 50% Increase in 30 Days </span> </div>
+            <!-- /.info-box-content --> 
+          </div>
+          <!-- /.info-box --> 
+        </div>
+        <!-- /.col -->
+        <div class="col-lg-3 col-sm-6 col-xs-12">
+          <div class="info-box bg-orange"> <span class="info-box-icon bg-transparent"><i class="ti-money"></i></span>
+            <div class="info-box-content">
+              <h6 class="info-box-text text-white">Total Profit</h6>
+              <h1 class="text-white">₹{{total}}</h1>
+              <span class="progress-description text-white"> 35% Increase in 30 Days </span> </div>
+            <!-- /.info-box-content --> 
+          </div>
+          <!-- /.info-box --> 
+        </div>
+        <!-- /.col --> 
+      </div>
+      <!-- /.row --> 
+      <!-- Main row -->
+      <h3> Order status</h3>
+      <canvas id="myCharts" width="600" height="200"></canvas>
+      <h3> revenue</h3>
+
+      <canvas id="myChart" width="600" height="200"></canvas>
+
+      
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.0/chart.min.js"></script>
+  <script>
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const myChart = new Chart(ctx, {
+                                        type: 'bar',
+                                        data: {
+                                            labels: ['cod ','razorpay','paypal'],
+                                            datasets: [{
+                                                label: 'Total Amount',
+                                                data: ['{{codtotal}}','{{raztotal}}','{{paytotal}}'],
+                                                backgroundColor: [
+                                                    // 'rgba(255, 99, 132, 0.8)',
+                                                    '#5867dd',
+                                                    '#00a65a ',
+                                                    '#04c1c4 ',
+                                                    'rgba(75, 192, 192, 0.8)',
+                                                    'rgba(153, 102, 255, 0.8)',
+                                                    'rgba(255, 159, 64, 0.8)'
+                                                ],
+                                                borderColor: [
+                                                    '#5867dd' ,
+                                                    '#00a65a',
+                                                    '#04c1c1',
+                                                    'rgba(75, 192, 192, 1)',
+                                                    'rgba(153, 102, 255, 1)',
+                                                    'rgba(255, 159, 64, 1)'
+                                                ],
+                                                borderWidth: 1
+                                            }]
+                                        },
+                                        options: {
+                                            scales: {
+                                                y: {
+                                                    beginAtZero: true
+                                                }
+                                            }
+                                        }
+                                    });
+                                    </script>
+
+                                    <script>
+                                      const ctxi = document.getElementById('myCharts').getContext('2d');
+                                      const myCharts = new Chart(ctxi, {
+                                                                  type: 'bar',
+                                                                  data: {
+                                                                      labels: ['Confirmed ','Shipped','Out_for_delivery','Delivered','Cancelled','Returned'],
+                                                                      datasets: [{
+                                                                          label: 'Total Amount',
+                                                                          data: ['{{Confirmed}}','{{Shipped}}','{{Out_for_delivery}}','{{Delivered}}','{{Cancelled}}','{{Returned}}'],
+                                                                          backgroundColor: [
+                                                                              // 'rgba(255, 99, 132, 0.8)',
+                                                                              '#5867dd',
+                                                                              '#00a65a ',
+                                                                              '#04c1c4 ',
+                                                                              'rgba(75, 192, 192, 0.8)',
+                                                                              'rgba(153, 102, 255, 0.8)',
+                                                                              'rgba(255, 159, 64, 0.8)'
+                                                                          ],
+                                                                          borderColor: [
+                                                                          '#5867dd',
+                                                                              '#00a65a ',
+                                                                              '#04c1c4 ',
+                                                                              'rgba(75, 192, 192, 1)',
+                                                                              'rgba(153, 102, 255, 1)',
+                                                                              'rgba(255, 159, 64, 1)'
+                                                                          ],
+                                                                          borderWidth: 1
+                                                                      }]
+                                                                  },
+                                                                  options: {
+                                                                      scales: {
+                                                                          y: {
+                                                                              beginAtZero: true
+                                                                          }
+                                                                      }
+                                                                  }
+                                                              });
+                                                              </script>
+  <!-- /.content-wrapper -->
+  
+  {% endblock %}
+
+

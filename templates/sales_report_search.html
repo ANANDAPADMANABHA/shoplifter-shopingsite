@@ -1,0 +1,57 @@
+{% extends 'adminbase.html' %}
+{% load static %}
+{% block content %}
+<div class="d-flex justify-content-center"><h2>Sales Report</h2></div>
+<div class="input-group m-2 mb-5 mx-5" style="width:28%;">
+  <form class="input-group" action="{% url 'salesreport' %}" method="POST">
+  {% csrf_token %}
+  <input type="number" name="salesreport_search" style="background:white" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+  <button type="submit"  class="btn btn-outline-primary">search</button>
+
+  </form>
+</div>
+
+
+
+
+<div class="content">
+  <div class="info-box">
+ 
+  <div class="table-responsive">
+              <table id="example2" class="table table-bordered table-hover" data-name="cool-table">
+                <thead>
+                  <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Order No </th>
+                    <th scope="col">Total Amount</th>
+                   
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for message in messages %}
+                    {{message}}
+                    {% endfor %}
+                  {% for sales in salesreport %}
+                <tr>
+                  <th scope="row">{{ forloop.counter }}</th>
+                  <td>{{ sales.date }}</td>
+          
+                  <td>{{ sales.orderid }}</td>
+                  <td>{{ sales.ordertotal }}</td>
+                 
+          
+                </tr>
+                {% endfor %}
+               
+              </tbody>
+             
+              </table>
+              </div>
+  </div>
+
+  
+
+</div>
+
+{% endblock %}

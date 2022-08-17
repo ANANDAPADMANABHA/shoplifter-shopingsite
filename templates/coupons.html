@@ -1,0 +1,112 @@
+{% extends 'adminbase.html' %}
+
+{% block content %}
+
+<div class="your-order ">
+    <br>
+    <div class="p-2"><a href="{% url 'couponadd' %}" class="btn btn-primary "  >add coupon</a></div>
+   
+    <!-- <div class="p-2"><a href="{% url 'couponadd' %}" class="btn btn-primary "  >add coupon</a></div> -->
+   
+
+    <div class="d-flex justify-content-center" >
+    <div class="table-responsive col-lg-10 ">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            
+            <th scope="col">coupon code</th>
+            <th scope="col">discount</th>
+            <th scope="col">disable</th>
+
+            
+            
+          </tr>
+        </thead>
+        <tbody>
+        {% for x in coupons %}
+          <tr>
+
+            
+            <td>{{x.coupon_code}}</td>
+            
+            <td>{{x.discount}}</td>
+            
+            {% if x.is_active  %}
+            
+            <td> <form action="{% url 'disableorenablecoupon' x.id %}"method="POST">
+              {% csrf_token %}
+            
+              <a   data-bs-toggle="modal" data-bs-target="#disableorenablecoupon-{{x.id}}">
+                <button type="" class="btn btn-danger">disable</button>
+            
+              </a>
+              <div class="modal fade" id="disableorenablecoupon-{{x.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+                    </div>
+                    <div class="modal-body">
+                      
+                      <p style="color:#000000 ;">Do you really want to disable {{x.coupon_code}}</p>
+                    </div>
+                    <div class="modal-footr d-flex justify-content-between p-3">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      
+                      <a href="{% url 'disableorenablecoupon' x.id %}"><button  class="btn btn-danger " style="background:dark-red;">Confirm</button></a>
+                    </div>
+                  </div>
+                </div>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+              </div>
+            </form></td>
+             {% else  %}
+           
+            <td> <form action="{% url 'disableorenablecoupon' x.id %}"method="POST">
+              {% csrf_token %}
+            
+              <a   data-bs-toggle="modal" data-bs-target="#disableorenablecoupon-{{x.id}}">
+                <button type="" class="btn btn-primary">enable</button>
+            
+              </a>
+              <div class="modal fade" id="disableorenablecoupon-{{x.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+                    </div>
+                    <div class="modal-body">
+                      
+                      <p style="color:#000000 ;">Do you really want to enable {{x.coupon_code}}</p>
+                    </div>
+                    <div class="modal-footr d-flex justify-content-between p-3">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      
+                      <a href="{% url 'disableorenablecoupon' x.id %}"><button  class="btn btn-danger " style="background:dark-red;">Confirm</button></a>
+                    </div>
+                  </div>
+                </div>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+              </div>
+            </form></td>
+            {% endif %}
+     
+      
+        
+      </tr>
+            
+          </tr>
+          {% endfor %}
+         
+        </tbody>
+      </table>
+      
+    </div>
+    </div>
+</div>
+</div>
+  
+{% endblock %}

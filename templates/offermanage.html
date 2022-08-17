@@ -1,0 +1,28 @@
+{% extends 'adminbase.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="d-flex justify-content-between p-4">
+    <div class="col-sm-7 ">
+        <div class="card-body mx-5 bg-warning ">
+          <a href="{% url 'productoffermanage' %}"><h5 class="card-title text-white">Product Offer Mangement 🎉</h5></a>
+            <p class="mb-4">
+                offers can <span class="fw-bold">improve</span> your sales.
+              </p>
+          </div>
+          <div class="card-body mx-5  ">
+            <a href="{% url 'categoryoffermanage' %}"><h5 class="card-title text-primary ">Category Offer Mangement 🎉</h5></a>
+            <p class="mb-4">
+              Add <span class="fw-bold">your offers </span> here .
+            </p>
+
+          </div>
+        </div>
+        
+      </div>
+
+
+   
+
+{% endblock %}

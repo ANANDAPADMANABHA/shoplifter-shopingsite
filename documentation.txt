@@ -1,0 +1,27 @@
+1. venv created ,project created , app created 
+2. app - user this app is for user login and signup
+3. root the app to the settings.py file in project INSTALLED_APPS
+4. create urls.py in app created and import path , views and create path
+5. in views.py of the app create a functoion
+6. now root the urls.py of the app to the project urls.py file
+
+@ by now you will be able to view something if you run the server only if you have done some HttpResponse in the views.py 
+  if you want to view a real html page then you need to 
+
+7. create a new folder named templates in the base directory
+8. root the templates folder in the main projects settings.py firstly import   os
+   - 'DIRS': [os.path.join(BASE_DIR,'templates')],
+9. create a folder named static and paste all static files from the 
+   templates 
+10. root the static folder in the project folder settings.py
+    STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,'static')
+     ]
+11. add {% load static %} on top of the html page we need to integrate to our project and add {% static 'assets/css/preloader.css' %} like this
+
+@ by now you will be able to load the html page properly
+
+12.signup form . 
+a.add names in the input of the form and use the input to assingn values in the next step of writing function for signup in views.py (userSignup)
+b.the path is of this sign up is the path put in the action = "" of the signup format
+c. then migrate

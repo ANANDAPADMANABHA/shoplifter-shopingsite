@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <main>
+        
+
+        <!-- account-area-start -->
+        <div class="account-area mt-70 mb-70">
+            <div class="container">
+                <div class="d-flex justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="basic-login mb-50">
+                            <h5>Login</h5>
+
+                            <form action="usersignin" method="POST">
+                                {% csrf_token %}
+                                <label for="name">username  <span>*</span></label>
+                                <input id="name" type="text" placeholder="Enter Username" name="username">
+                                <label for="pass">Password <span>*</span></label>
+                                <input id="pass" type="password" placeholder="Enter password..." name="password">
+                                
+                                <button type="submit" class="tp-in-btn w-100">log in</button>
+                                {% if messages %}
+                                {% for message in messages %}
+                                    {{message}}
+                                 {% endfor %}
+                                 {% endif %}
+                            </form>
+                            <P></P>
+                            <a href="otp" class="tp-in-btn w-100"> Login with OTP</a><p></p>
+                            <a href="singnupuser" class="tp-in-btn w-100"> create new account</a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- account-area-end -->
+
+        <!-- cta-area-start -->
+  
+        <!-- cta-area-end -->
+
+    </main>
+    {% endblock %}
+    

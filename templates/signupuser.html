@@ -1,0 +1,72 @@
+
+    <!-- offcanvas area end -->
+    {% extends 'base.html' %}
+
+    {% block content %}
+    <main>
+        
+
+        <!-- account-area-start -->
+        <div class="account-area mt-70 mb-70">
+            <div class="container">
+                <div class="d-flex justify-content-center">
+                    
+                    <div class="col-lg-6">
+                        <div class="basic-login">
+                            <h5>Register</h5>
+                            <form action="usersignup" method="POST">
+                                {% csrf_token %}
+                                <label for="username">Username<span>*</span></label>
+                                <input id="username" type="text" placeholder="Enter Username" name="username" >
+                                {% for message in messages %}
+                                {%if "signupusername" in message.tags %}
+                                    <p><span>{{message}}</span></p>
+                                 {%endif%}        
+                                {% endfor %}
+                                <label for="username">first name<span>*</span></label>
+                                <input id="first_name" type="text" placeholder="Enter Username" name="first_name" >
+
+                                <label for="username">last name<span>*</span></label>
+                                <input id="name_name" type="text" placeholder="Enter Username" name="last_name" >
+                                
+                                <label for="email-id">Email Address <span>*</span></label>
+                                <input id="email" type="email" placeholder="Email address..." name="email" >
+                                {% for message in messages %}
+                                {%if "signupemail" in message.tags %}
+                                    <p>{{message}}</p>
+                                 {%endif%}        
+                                {% endfor %}
+                                <!-- <label for="username">phone number<span>*</span></label>
+                                <input id="first_name" type="number" placeholder="Enter Username" name="phone_number" > -->
+
+                                <label for="userpass">Create Password <span>*</span></label>
+                                <input id="userpass" type="password" placeholder="Enter password..." name="password1">
+                                {% for message in messages %}
+                                {%if "signuppassword" in message.tags %}
+                                     <p>{{message}}</p>
+                                 {%endif%}        
+                                {% endfor %}
+                                <label for="userpass">Confirm Password <span>*</span></label>
+                                <input id="userpass" type="password" placeholder="Enter password..." name="password2">
+                                {% for message in messages %}
+                                {%if "signuppassword" in message.tags %}
+                                     <p>{{message}}</p>
+                                 {%endif%}        
+                                {% endfor %}
+                                <div class="login-action mb-10 fix">
+                                    <!-- <p>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <a href="#">privacy policy</a>.</p> -->
+                                </div>
+                                <button type="submit" class="tp-in-btn w-100">Register</button>
+                            
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- account-area-end -->
+
+        <!-- cta-area-start -->
+      </main>
+
+      {% endblock %}

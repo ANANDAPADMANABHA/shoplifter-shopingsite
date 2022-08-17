@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="your-order ">
+        <div class="d-flex justify-content-center" >
+            								
+        <div class="table-responsive col-lg-10 ">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                
+                <th scope="col">Image</th>
+                <th scope="col">name</th>
+                <th scope="col">Total_price</th>
+                
+                
+                <th scope="col">Order_status</th>
+                <th scope="col">View_order</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+            {% for x in orderprod %}
+              <tr>
+                <td><img src="{{x.product.image}}" alt="" class="img-fluid img-thumbnail" style="width:140px; height:160px"><br>id :{{x.order.orderid}} <br>{{x.product.name}} x {{x.quantity}} </td>
+                
+                <td>{{x.order.address.firstname}}</td>
+                
+                <td>{{x.price}}</td>
+                
+                
+                <td>{{x.status}}</td>
+                {% if x.status == 'Cancelled' %}
+                <td> <a  class="btn btn-danger"  >cancelled</a> </td>
+                {% elif x.status == 'Delivered' %}
+                <td> <a href="{% url 'orderreturn' x.id %}" class="btn btn-primary"  >Return items </a> </td>
+                
+                {% elif x.status == 'Returned' %}
+                
+                {% else %}
+                <td> <a href="{% url 'ordercancel' x.id %}" class="btn btn-primary">cancel items</a> </td>
+                {% endif %}
+                
+              </tr>
+              {% endfor %}
+             
+            </tbody>
+          </table>
+          
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

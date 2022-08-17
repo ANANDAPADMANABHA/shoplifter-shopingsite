@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main>
+   
+
+    <!-- coupon-area-start -->
+    <section class="coupon-area pt-120 pb-30">
+        <div class="container">
+            
+    </div>
+    </section>
+    <!-- coupon-area-end -->
+
+    <!-- checkout-area-start -->
+    <section class="checkout-area pb-85">
+        <div class="container">
+            <form action="confirmpayment" method="POST" >
+                {% csrf_token %}
+                <div class="row">
+                    
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                              <div class="container mb-5 mt-3">
+                                <div class="row d-flex align-items-baseline">
+                                  <div class="col-xl-9">
+                                    <p style="color: #7e8d9f;font-size: 20px;">Invoice >> <strong>ID: #123-123</strong></p>
+                                  </div>
+                                  <div class="col-xl-3 float-end">
+                                    <a onclick="print_current_page()" class="btn btn-light text-capitalize border-0" data-mdb-ripple-color="dark"><i
+                                        class="fas fa-print text-primary"></i> Print</a>
+                                   
+                                  </div>
+                                  <hr>
+                                </div>
+                          
+                                <div id="printPage" class="container">
+                                    <div class="col-md-12">
+                                      <div class="text-center">
+                                        <h2>Thank You</h2>
+                                       
+                                      </div>
+                            
+                                    </div>
+                            
+                            
+                                    <div class="row">
+                                      <div class="col-xl-8">
+                                        <ul class="list-unstyled">
+                                          <li class="text-muted">To: <span style="color:#5d9fc5 ;">{{details.firstname}} {{details.lastname}}  </span></li>
+                                          
+                                          <li class="text-muted">{{details.housename}}</li>
+                                          <li class="text-muted">{{details.town}}</li>
+                                          <li class="text-muted">{{details.city}}</li>
+                                          <li class="text-muted"><i class="fas fa-phone"></i> {{details.phonenumber}}</li>
+                                        </ul>
+                                      </div>
+                                      <div class="col-xl-4">
+                                        <p class="text-muted">Invoice</p>
+                                        <ul class="list-unstyled">
+                                          <li class="text-muted"><i class="fas fa-circle" style="color:#84B0CA ;"></i> <span
+                                              class="fw-bold">ID:</span>{{details.phonenumber}}</li>
+                                          <li class="text-muted"><i class="fas fa-circle" style="color:#84B0CA ;"></i> <span
+                                              class="fw-bold">Creation Date: </span>{{dates}}</li>
+                                          <li class="text-muted"><i class="fas fa-circle" style="color:#84B0CA ;"></i> <span
+                                              class="me-1 fw-bold">Status:</span><span class="badge bg-warning text-black fw-bold">
+                                              paid</span></li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                            
+                                    <div class="row my-2 mx-1 justify-content-center">
+                                      <table class="table table-striped table-borderless">
+                                        <thead style="background-color:#84B0CA ;" class="text-white">
+                                          <tr>
+                                            
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Qty</th>
+                                            <th scope="col">Unit Price</th>
+                                            <th scope="col">Amount</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          {% for Orderproduct in ordered_products %}
+                                          <tr>
+                                            
+                                            <td>{{Orderproduct.product.name}}</td>
+                                            <td>{{Orderproduct.quantity}}</td>
+                                            <td>₹{{Orderproduct.price}}</td>
+                                            <td>₹{{Orderproduct.sub_total}}</td>
+                                          </tr>
+                                          {% endfor %}
+                                        </tbody>
+                            
+                                      </table>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-xl-8">
+                                        <p class="ms-3">Add additional notes and payment information</p>
+                            
+                                      </div>
+                                      <div class="col-xl-3">
+                                        <ul class="list-unstyled">
+                                          <li class="text-muted ms-3"><span class="text-black me-4">SubTotal</span>₹{{total}}</li> <br>
+                                          <li class="text-muted ms-3 mt-2"><span class="text-black me-4">Tax(15%)</span>₹{{tax}}</li> <br>
+                                        </ul>
+                                        <p class="text-black float-start"><span class="text-black me-3"> Total Amount</span><span
+                                            style="font-size: 25px;">₹{{grand_total}}</span></p>
+                                      </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                      <div class="col-xl-10">
+                                        <p>Thank you for your purchase</p>
+                                      </div>
+                                      
+                                    </div>
+                            
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!-- checkout-area-end -->
+
+    <!-- cta-area-start -->
+    <section class="cta-area d-ldark-bg pt-55 pb-10">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="cta-item cta-item-d mb-30">
+                        <h5 class="cta-title">Follow Us</h5>
+                        <p>We make consolidating, marketing and tracking your social media website easy.</p>
+                        <div class="cta-social">
+                            <div class="social-icon">
+                                <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+                                <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#" class="rss"><i class="fas fa-rss"></i></a>
+                                <a href="#" class="dribbble"><i class="fab fa-dribbble"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="cta-item mb-30">
+                        <h5 class="cta-title">Sign Up To Newsletter</h5>
+                        <p>Join 60.000+ subscribers and get a new discount coupon  on every Saturday.</p>
+                        <div class="subscribe__form">
+                            <form action="#">
+                                <input type="email" placeholder="Enter your email here...">
+                                <button>subscribe</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="cta-item mb-30">
+                        <h5 class="cta-title">Download App</h5>
+                        <p>DukaMarket App is now available on App Store & Google Play. Get it now.</p>
+                        <div class="cta-apps">
+                            <div class="apps-store">
+                                <a href="#"><img src="assets/img/brand/app_ios.png" alt=""></a>
+                                <a href="#"><img src="assets/img/brand/app_android.png" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- cta-area-end -->
+
+</main>
+<script>
+
+  function print_current_page()
+  {
+      var divContents = document.getElementById("printPage").innerHTML;  
+      var printWindow = window.open('', '', 'height=200,width=400'); 
+      printWindow.document.write('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">');
+      printWindow.document.write('<html><head><title>Invoice</title>');  
+      printWindow.document.write('</head><body >');  
+      printWindow.document.write(divContents);  
+      printWindow.document.write('</body></html>');  
+      printWindow.document.close();  
+      printWindow.print();  
+  }
+  
+  </script>
+{% endblock %}

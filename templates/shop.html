@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main>
+<section class="top-dels light-bg-s pt-30">
+    <div class="container">
+<div class="row row-cols-xxl-5 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-1">
+
+                    {% for x in values %}
+                    <div class="col">
+                        <div class="product__item product__item-2 b-radius-2 mb-20">
+                            <div class="product__thumb fix">
+                                <div class="product-image w-img">
+                                    <a href="productdisplay{{x.id}}">
+                                        <img src="{{x.image}}" alt="product" style="width: 180px;height: 160px;">
+                                    </a>
+                                </div>
+                                <div class="product__offer">
+                                
+                                <span class="discount">-{{x.max_offer}}% OFFER</span>
+
+                                </div>
+                                <div class="product-action product-action-2">
+                                    <a href="#" class="icon-box icon-box-1" data-bs-toggle="modal" data-bs-target="#productModalId">
+                                        <i class="fal fa-eye"></i>
+                                        <i class="fal fa-eye"></i>
+                                    </a>
+                                    <a href="#" class="icon-box icon-box-1">
+                                        <i class="fal fa-heart"></i>
+                                        <i class="fal fa-heart"></i>
+                                    </a>
+                                    <a href="#" class="icon-box icon-box-1">
+                                        <i class="fal fa-layer-group"></i>
+                                        <i class="fal fa-layer-group"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="product__content product__content-3">
+                                <h6><a href="productdisplay{{x.id}}">{{x.name}}</a></h6>
+                                <div class="rating mb-5 mt-10">
+                                    <ul>
+                                        <li><a href="#"><i class="fal fa-star"></i></a></li>
+                                        <li><a href="#"><i class="fal fa-star"></i></a></li>
+                                        <li><a href="#"><i class="fal fa-star"></i></a></li>
+                                        <li><a href="#"><i class="fal fa-star"></i></a></li>
+                                        <li><a href="#"><i class="fal fa-star"></i></a></li>
+                                    </ul>
+                                    <span>(01 review)</span>
+                                </div>
+                                <div class="price mb-20">
+                                    
+                                    {% if x.offer_price %}
+                                    MRP: <del>{{x.price}} ₹</del> <br>
+                                    <span>   {{x.offer_price}} ₹</span>
+                                    {% else %}
+                                    <span>{{x.price}} ₹</span>
+                                    {% endif %}
+
+
+                                </div>
+                                <div class="progress mb-5">
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div class="progress-rate">
+                                    <span>stock:{{x.stock}}</span>
+                                </div>
+                            </div>
+                            <div class="product__add-cart text-center">
+                                <button type="button" class="cart-btn-3 product-modal-sidebar-open-btn d-flex align-items-center justify-content-center w-100">
+                                    <a href="{% url 'add_cartsimple' x.id %}">Add to Cart</a>
+                                
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+
+<!-- product end -->
+                    </div>
+                </div>
+                </section>
+
+            </main>
+
+
+{% endblock %}

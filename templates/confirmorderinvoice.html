@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main>
+   
+  
+
+    <!-- coupon-area-start -->
+    <section class="coupon-area pt-120 pb-30">
+        <div class="container">
+            
+    </div>
+    </section>
+    <!-- coupon-area-end -->
+
+    <!-- checkout-area-start -->
+    <section class="checkout-area pb-85">
+        <div class="container">
+            <form action="#">
+                <div class="d-flex justify-content-between">
+                    <div class="col-lg-8">
+                        <div class="checkbox-form">
+                            
+                            
+                            <div class="different-address">
+                                <div class="card">
+                                    <div class="card-body">
+                                      <div class="container mb-5 mt-3">
+                                        <div class="row d-flex align-items-baseline">
+                                          <div class="col-xl-9">
+                                            <p style="color: #7e8d9f;font-size: 20px;">Invoice >> <strong>ID: #123-123</strong></p>
+                                          </div>
+                                          <div class="col-xl-3 float-end">
+                                            <a class="btn btn-light text-capitalize border-0" data-mdb-ripple-color="dark"><i
+                                                class="fas fa-print text-primary"></i> Print</a>
+                                            <a class="btn btn-light text-capitalize" data-mdb-ripple-color="dark"><i
+                                                class="far fa-file-pdf text-danger"></i> Export</a>
+                                          </div>
+                                          <hr>
+                                        </div>
+                                  
+                                        <div class="container">
+                                          <div class="col-md-12">
+                                            <div class="text-center">
+                                              <h3>Review your Order and choose payment</h3>
+                                             
+                                            </div>
+                                  
+                                          </div>
+                                  
+                                  
+                                          <div class="row">
+                                            <div class="col-xl-8">
+                                              <ul class="list-unstyled">
+                                                <li class="text-muted">To: <span style="color:#5d9fc5 ;">{{details.firstname}} {{details.lastname}}  </span></li>
+                                                
+                                                <li class="text-muted"><br>{{details.housename}}</li>
+                                                <li class="text-muted">{{details.town}}</li>
+                                                <li class="text-muted">{{details.city}}</li>
+                                                <li class="text-muted"><i class="fas fa-phone"></i> {{details.phonenumber}}</li> <br>
+                                              </ul>
+                                            </div>
+                                            
+                                          </div>
+                                  
+                                          <div class="row my-2 mx-1 justify-content-center">
+                                            <table class="table">
+                                              <thead>
+                                                 <tr>
+                                                    <th class="product-thumbnail">Images</th>
+                                                    <th class="cart-product-name">Product</th>
+                                                    <th class="product-price">Unit Price</th>
+                                                    <th class="product-quantity">Quantity</th>
+                                                    <th class="product-subtotal">Total</th>
+                                                 
+                                                 </tr>
+                                              </thead>
+                                              <tbody>
+                                                  {% for cart_item in cart_items %}
+                                                 <tr>
+                                                    <td class="product-thumbnail"><a href="shop-details.html"><img src="{{cart_item.product.image}}" alt=""></a></td>
+                                                    <td class="product-name"><a href="shop-details.html">{{cart_item.product.name}}</a></td>
+                                                    <td class="product-price"><span class="amount">{{cart_item.product.offer_price}}</span></td>
+                                                    <td class="product-quantity">
+                                                      <!--  -->
+                                                          <div class="">
+                                                              <a href="{% url 'remove_cart' cart_item.product.id %}">-</a>
+                                                              <input type="button" value="{{cart_item.quantity}}">
+                                                              <a href="{% url 'add_cart' cart_item.product.id %}">+</a>
+                                                            
+                                                          </div>
+                                                    </td>
+                                                    <!-- there are two functions for deleting the cart because in my code we dont create cartid for logged in user if he create a cart -->
+                                                    <td class="product-subtotal"><span class="amount">{{cart_item.cartprice}}</span></td>
+                                        
+                                                    
+                                                 </tr>
+                                                 {% endfor %}
+                                              </tbody>
+                                        </table>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-xl-8">
+                                         
+                                  
+                                            </div>
+                                            <div class="col-xl-3">
+                                              <ul class="list-unstyled">
+                                                <li class="text-muted ms-3"><span class="text-black me-4">SubTotal</span>₹{{total}}</li>
+                                                <li class="text-muted ms-3 mt-2"><span class="text-black me-4">Tax(15%)</span>₹{{tax}}</li>
+                                              </ul>
+                                              <p class="text-black float-start"><span class="text-black me-3"> Total Amount</span><span
+                                                  style="font-size: 25px;" id="grandtotal">₹{{grand_total}}</span></p>
+                                            </div>
+                                          </div>
+                                          <hr>
+                                          <div class="row">
+                                            <div class="col-xl-10">
+                                              <p>Thank you for your purchase</p>
+                                            </div>
+                                            <div class="col-xl-2">
+                                             
+                                            </div>
+                                          </div>
+                                  
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 ">
+                        <div class="your-order mb-30 ">
+                            <h3>Payment methods</h3>
+                            
+
+                            <div class="payment-method">
+                                {% if Buynow == 1 %}
+                                <div class="order-button-payment mt-20">
+                                <button type="submit" class="tp-btn-h1"><a href="{% url 'placecodBuynow' %}">Cash on delivery</a></button>
+                                </div>
+                                {% else %}
+                                <div class="order-button-payment mt-20">
+                                  <button type="submit" class="tp-btn-h1"><a href="{% url 'placecod' %}">Cash on delivery</a></button>
+                                  </div>
+                                  <div class="order-button-payment mt-20">
+                                    <button type="submit" class="tp-btn-h1"><a href="{% url 'razorpayhome' %}">Razorpay</a></button>
+                                  </div>
+                                  <div class="order-button-payment mt-20">
+                                    <button type="submit" class="tp-btn-h1"><a href="{% url 'paypal' %}">paypal</a></button>
+                                  </div>
+                                {% endif %}
+                               
+                               
+                                
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!-- checkout-area-end -->
+
+    <!-- cta-area-start -->
+    <section class="cta-area d-ldark-bg pt-55 pb-10">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="cta-item cta-item-d mb-30">
+                        <h5 class="cta-title">Follow Us</h5>
+                        <p>We make consolidating, marketing and tracking your social media website easy.</p>
+                        <div class="cta-social">
+                            <div class="social-icon">
+                                <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+                                <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#" class="rss"><i class="fas fa-rss"></i></a>
+                                <a href="#" class="dribbble"><i class="fab fa-dribbble"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="cta-item mb-30">
+                        <h5 class="cta-title">Sign Up To Newsletter</h5>
+                        <p>Join 60.000+ subscribers and get a new discount coupon  on every Saturday.</p>
+                        <div class="subscribe__form">
+                            <form action="#">
+                                <input type="email" placeholder="Enter your email here...">
+                                <button>subscribe</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="cta-item mb-30">
+                        <h5 class="cta-title">Download App</h5>
+                        <p>DukaMarket App is now available on App Store & Google Play. Get it now.</p>
+                        <div class="cta-apps">
+                            <div class="apps-store">
+                                <a href="#"><img src="assets/img/brand/app_ios.png" alt=""></a>
+                                <a href="#"><img src="assets/img/brand/app_android.png" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- cta-area-end -->
+
+</main>
+
+
+
+
+{% endblock %}

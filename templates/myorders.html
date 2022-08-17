@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="your-order ">
+        <div class="d-flex justify-content-center" >
+            								
+        <div class="table-responsive col-lg-10 ">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                
+                <th scope="col">Name</th>
+                <th scope="col">Phone_number</th>
+                <th scope="col">Total_price</th>
+                <th scope="col">Order_id</th>
+                <th scope="col">Date</th>
+                <th scope="col"></th>
+
+
+                
+                
+                
+              </tr>
+            </thead>
+            <tbody>
+            {% for x in orders %}
+              <tr>
+                
+                <td><a href="{% url 'orderdetails' x.id %}">{{x.address.firstname}}</a></td>
+                <td>{{x.address.phonenumber}}</td>
+                <td>{{x.ordertotal}}</td>
+                <td>{{x.orderid}}</td>
+                <td>{{x.date}}</td>
+                <td> <a href="{% url 'orderdetails' x.id %}" class="btn btn-primary"  >view details</a> </td>
+                
+                
+              </tr>
+              {% endfor %}
+             
+            </tbody>
+          </table>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+            {% if orders.has_previous %}
+            
+            <li class="page-item"><a class="page-link" href="?page={{ orders.previous_page_number }}">Previous</a></li>
+            
+            {% endif %}
+            <li class="page-item"><a class="page-link" href="#">Page {{orders.number}} of {{orders.paginator.num_pages}}</a></li>
+            
+            {% if orders.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{orders.next_page_number}}">Next</a></li>
+            {% endif %}
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main>
+   
+
+    <!-- coupon-area-start -->
+    <section class="coupon-area pt-120 pb-30">
+        <div class="container">
+            
+    </div>
+    </section>
+    <!-- coupon-area-end -->
+
+    <!-- checkout-area-start -->
+    <section class="checkout-area pb-85">
+        <div class="container">
+            <form action="confirmpayment" method="POST" >
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="checkbox-form">
+                            
+                            
+                            <div class="different-address">
+                                <h3>Billing Details</h3> 
+                                {% for x in details %}
+                                <div class="radio">
+                                    <label>
+                                    <input type="radio" name="address" id="optionsRadios1" value="{{x.id}}" checked>
+                                        {{x.firstname}} 
+                                        {{x.lastname}} <br>
+                                        {{x.phonenumber}},<br>
+                                        {{x.housename}},<br>
+                                        {{x.town}},<br>
+                                        {{x.city}},<br>
+                                        {{x.pincode}} <br><br>
+                                            
+                                        </label>
+                                    </div>
+                                    {% endfor %}
+                                <div class="ship-different-title">
+                                    <h3>
+                                        
+                                        <div class="order-button-payment mt-20">
+                                            <a href="{% url 'addaddress' %}" class="tp-btn-h1">Add address</a>
+                                            </div>
+                                    </h3>
+                                </div>
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="your-order mb-30 ">
+                            <h3>Your order</h3>
+                            <div class="your-order-table table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="product-name">Product</th>
+                                            <th class="product-total">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for cart_item in cart_items %}
+                                        <tr class="cart_item">
+                                            <td class="product-name">
+                                                {{cart_item.product.name}} <strong class="product-quantity"> × {{cart_item.quantity}}</strong>
+                                            </td>
+                                            <td class="product-total">
+                                                <span class="amount">₹{{cart_item.cartprice}}</span>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="cart-subtotal">
+                                            <th>Cart Subtotal</th>
+                                            <td><span class="amount">₹{{total}}</span></td>
+                                        </tr>
+                                        <tr class="cart-subtotal">
+                                            <th>Tax</th>
+                                            <td><span class="amount">₹{{tax}}</span></td>
+                                        </tr>
+                                        
+                                        <tr class="order-total">
+                                            <th>Order Total</th>
+                                            <td><strong><span class="amount">{{grand_total}}</span></strong>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+
+                            <div class="payment-method">
+                                <!-- href="{% url 'confirmpayment' %}"  -->
+                                <div class="order-button-payment mt-20">
+                                <button class="tp-btn-h1" type="submit">Place order</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!-- checkout-area-end -->
+
+    
+    <!-- cta-area-end -->
+
+</main>
+
+{% endblock %}

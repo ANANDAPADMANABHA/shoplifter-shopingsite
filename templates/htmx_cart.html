@@ -1,0 +1,96 @@
+<div class="col-12">
+                        
+    <div  class="table-content table-responsive" >
+<table class="table">
+    <thead>
+       <tr>
+          <th class="product-thumbnail">Images</th>
+          <th class="cart-product-name">Product</th>
+          <th class="product-price">Unit Price</th>
+          <th class="product-quantity">Quantity</th>
+          <th class="product-subtotal">Total</th>
+          <th class="product-remove">Remove</th>
+       </tr>
+    </thead>
+    <tbody>
+        {% for cart_item in cart_items %}
+       <tr><div  >
+          <td class="product-thumbnail"><a href="{% url 'productdisplay' cart_item.product.id %}"><img src="{{cart_item.product.image}}" alt=""></a></td>
+          <td class="product-name"><a href="{% url 'productdisplay' cart_item.product.id %}">{{cart_item.product.name}}</a></td>
+          <td class="product-price"><span class="amount">{{cart_item.product.offer_price}}</span></td>
+          <td class="product-quantity">
+            <!--  -->
+                <div class="product-quantity mr-20">
+                    
+                    <span 
+                    style="cursor:pointer"
+                    hx-delete ="{% url 'remove_cartminus' cart_item.product.id %}"
+                    hx-target = "#cartbox"
+                    hx-swap = "outerhtml"
+                    >-</span>
+                    <input type="button" value="{{cart_item.quantity}}">
+                    
+            <span 
+            style="cursor:pointer"
+            hx-delete ="{% url 'add_cartplus' cart_item.product.id %}"
+            hx-target = "#cartbox"
+            hx-swap = "outerhtml"
+            >+</span>
+                  
+                </div>
+          </td>
+          <!-- there are two functions for deleting the cart because in my code we dont create cartid for logged in user if he create a cart -->
+          <td class="product-subtotal"><span class="amount">₹{{cart_item.cartprice}}</span></td>
+          
+          <td class="product-remove">
+            <span 
+            style="cursor:pointer"
+            hx-delete ="{% url 'delete_cart' cart_item.id %}"
+            hx-target = "#cartbox"
+            hx-swap = "outerhtml"
+            ><i class="fa fa-times"></i></span></td>
+
+      </div>
+       </tr>
+       {% endfor %}
+    </tbody>
+</table>
+</div>
+{% if user.is_authenticated %}
+
+<form action="{% url 'couponapply' %}" method="POST">
+ {% csrf_token %}
+<div class="row">
+   <div class="col-12">
+         <div class="coupon-all">
+            <div class="coupon">
+             
+               <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Coupon code" type="text">
+               <button class="tp-btn-h1" name="apply_coupon" type="submit">Apply
+                     coupon</button>
+                 {% for message in messages  %}
+                 {{message}}
+                 {% endfor %}
+            </div>
+            
+         </div>
+   </div>
+ </form>
+{% else %}
+
+{% endif %}
+
+</div>
+<div class="row justify-content-end">
+   <div class="col-md-5">
+         <div class="cart-page-total">
+            <h2>Cart totals</h2>
+            <ul class="mb-20">
+               <li>Subtotal <span>₹{{total}}</span></li>
+               <li>tax <span>₹{{tax}}</span></li>
+               <li>Total <span>₹{{grand_total}}</span></li>
+            </ul>
+            <a class="tp-btn-h1" href="{% url 'checkout' %}">Proceed to checkout</a>
+         </div>
+   </div>
+</div>

@@ -1,0 +1,70 @@
+<a class="icon-link icon-link-2" href="{% url 'cartview' %}">
+    <i class="flaticon-shopping-bag"></i>
+    
+    <span class="count count-2">{{x}}</span>
+    <span class="text">
+    <span class="sub">Your Cart:</span>
+    ₹{{grand_totalcontext}}</span>
+    </a>
+    <div class="cart">
+        <div class="cart__mini">
+            <ul>
+                <li>
+                  <div class="cart__title">
+                    <h4>Your Cart</h4>
+                    {% if x > 1 %}
+                    <span>( {{x}} Items in Cart)</span>
+                    {% elif x == 1 %}
+                    <span>( 1 Item in Cart)</span>
+                    {% else %}
+                    <span>( no Item in Cart)</span>
+                    {% endif %}
+                
+
+
+
+
+                  </div>
+                </li>
+                <li>
+                    {% for cart in cart_itemscontext %}
+                  <div class="cart__item d-flex justify-content-between align-items-center">
+                    <div class="cart__inner d-flex">
+                      <div class="cart__thumb">
+                        <a href="{% url 'productdisplay' cart.product.id %}">
+                          <img src="{{cart.product.image}}" alt="">
+                        </a>
+                      </div>
+
+                      <div class="cart__details">
+                        <h6><a href="{% url 'productdisplay' cart.product.id %}"> {{cart.product}}  </a></h6>
+                        <div class="cart__price">
+                          <span>₹{{cart.cartprice}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="cart__del">
+                        <span 
+            style="cursor:pointer"
+            hx-delete ="{% url 'delete_cartshome' cart.id %}"
+            hx-target = "#cartboxhome"
+            hx-swap = "outerhtml"
+            ><i class="fa fa-times"></i></span>
+                        
+                    </div>
+                  </div>
+                  {% endfor %}
+                </li>
+                <li>
+                  <div class="cart__sub d-flex justify-content-between align-items-center">
+                    <h6>Subtotal</h6>
+                    <span class="cart__sub-total">₹{{grand_totalcontext}}</span>
+                  </div>
+                </li>
+                <li>
+                    <a href="{% url 'cartview' %}" class="wc-cart mb-10">View cart</a>
+                    <a href="{% url 'checkout' %}" class="wc-checkout">Checkout</a>
+                </li>
+            </ul>
+        </div>
+    </div>

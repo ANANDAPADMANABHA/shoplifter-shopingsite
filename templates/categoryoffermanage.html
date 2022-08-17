@@ -1,0 +1,118 @@
+{% extends 'adminbase.html' %}
+
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <div class="content-header sty-one">
+      <h1 class="text-white">Basic Tables</h1>
+      <ol class="breadcrumb">
+        <li><a href="adminhome">Home</a></li>
+        <li class="sub-bread"><i class="fa fa-angle-right"></i> Tables</li>
+        <li><i class="fa fa-angle-right"></i> Basic Tables</li>
+        
+
+      </ol>
+    </div>
+    
+        <hr class="m-t-1 m-b-3">
+        
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">category name</th>
+                <th scope="col">offer</th>
+                
+                <th scope="col">manage offer</th>
+
+                
+                
+
+                
+              </tr>
+            </thead>
+            <tbody>
+              {% for x in values %}
+              <tr>
+                <th scope="row">{{x.id}}</th>
+                <td>{{x.category_name}}</td>
+                <td>{{x.offer}}%</td>
+               
+                <td>
+                  <form action="{% url 'offerstatusedit' x.id %}" method="POST">
+                    {% csrf_token %}
+                
+                    <select  class="form-control" name ='offer' >
+                      <option>10</option>
+                      <option>20</option>
+                      <option>25</option>
+                      <option>30</option>
+                      <option>40</option>
+                      <option>50</option>
+                      <option>55</option>
+                      <option>60</option>
+                      <option>70</option>
+                      <option>80</option>
+                      <option>90</option>
+
+    
+                    </select>
+                    
+                </td>
+                {% if x.offerstatus   %}
+                <td><button type="submit" class="btn btn-primary">submit</button></td>
+              </form>
+              <!-- ------------------------------------------------------------------sweet alert -->
+            
+            <td> <form action="{% url 'disablecatoffer' x.id %}"method="POST">
+              {% csrf_token %}
+        
+              <a   data-bs-toggle="modal" data-bs-target="#disablecatoffer-{{x.id}}">
+                <button type="" class="btn btn-danger">Disable</button>
+        
+              </a>
+              <div class="modal fade" id="disablecatoffer-{{x.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+                    </div>
+                    <div class="modal-body">
+                      
+                      <p style="color:#000000 ;">Do you really want to disable {{x.name}}</p>
+                    </div>
+                    <div class="modal-footr d-flex justify-content-between p-3">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      
+                      <a href="{% url 'disablecatoffer' x.id %}"><button  class="btn btn-danger " style="background:dark-red;">Confirm</button></a>
+                    </div>
+                  </div>
+                </div>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+              </div>
+          </form></td>
+              <!-- ------------------------------------------------------------------sweet alert -->
+
+
+             {% else  %}
+             <td><button type="submit" class="btn btn-primary"disabled >submit</button></td>
+            <td> <a href="{% url 'disablecatoffer' x.id %}" class="btn btn-primary"  >enable</a> </td>
+                {% endif %}
+                <!-- <td><a href="deletecategory/{{ x.id }}"><button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to delete?')" >delete</button></a></td> -->
+                
+
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.content --> 
+  
+    {% endblock %}

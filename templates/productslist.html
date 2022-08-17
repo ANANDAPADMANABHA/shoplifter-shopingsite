@@ -1,0 +1,119 @@
+{% extends 'adminbase.html' %}
+
+{% block content %}
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header sty-one">
+      <h1 class="text-white">Product List</h1>
+      <a href="{% url 'addproduct' %}"><button type="submit" class="btn btn-warning">Add Product</button></a>
+      <ol class="breadcrumb">
+        <li><a href="adminhome">Home</a></li>
+        <li class="sub-bread"><i class="fa fa-angle-right"></i> Tables</li>
+        <li><i class="fa fa-angle-right"></i> Basic Tables</li>
+        
+      </ol>
+    </div>
+    <div class="pull-left search-box">
+      <form action="{% url 'searchprod' %}" method="get" class="search-form">
+        <div class="input-group">
+          <input name="search" class="form-control" placeholder="Search..." type="text">
+          <span class="input-group-btn">
+          <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i> </button>
+          </span></div>
+      </form>
+      <!-- search form --> </div>
+    
+        <hr class="m-t-1 m-b-3">
+        
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">name</th>
+                <th scope="col">description</th>
+                <th scope="col">price</th>
+                <th scope="col">stock</th>
+                <th scope="col">category</th>
+                <th scope="col">image</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for x in productValues %}
+              <tr>
+
+                <th scope="row">{{x.id}}</th>
+                <td>{{x.name}}</td>
+                <td>{{x.description}}</td>
+                <td>{{x.price}}</td>
+                <td>{{x.stock}}</td>
+                <td>{{x.category}}</td>
+                <td><img src="{{x.image}}" alt="" class="img-fluid img-thumbnail" style="width:140px; height:160px"></td>
+                <td><a href="{% url 'editproduct' x.id %}"><button type="submit" class="btn btn-warning">edit</button></a></td>
+                <!-- <td><a href="delete/{{ x.id }}"><button type="submit" class="btn btn-danger" onclick="return confirmation()" >delete</button></a></td> -->
+                
+                <td> <form action="{% url 'delete' x.id %}"method="POST">
+                  {% csrf_token %}
+            
+                  <a   data-bs-toggle="modal" data-bs-target="#delete-{{x.id}}">
+                    <button type="" class="btn btn-danger btn-block mb-4">Delete</button>
+            
+                  </a>
+                  <div class="modal fade" id="delete-{{x.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+                        </div>
+                        <div class="modal-body">
+                          
+                          <p style="color:#000000 ;">Do you really want to delete {{x.name}}</p>
+                        </div>
+                        <div class="modal-footr d-flex justify-content-between p-3">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          
+                          <a href="{% url 'delete' x.id %}"><button  class="btn btn-danger " style="background:dark-red;">Confirm</button></a>
+                        </div>
+                      </div>
+                    </div>
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+                  </div>
+              </form></td>
+
+              </tr>
+              {% endfor %}
+
+            </tbody>
+
+          </table>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+            {% if productValues.has_previous %}
+            
+            <li class="page-item"><a class="page-link" href="?page={{ productValues.previous_page_number }}">Previous</a></li>
+            
+            {% endif %}
+            <li class="page-item"><a class="page-link" href="#">Page {{productValues.number}} of {{productValues.paginator.num_pages}}</a></li>
+            
+            {% if productValues.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{productValues.next_page_number}}">Next</a></li>
+            
+          {% endif %}
+          
+              
+         
+              
+            </ul>
+          </nav>
+        </div>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.content --> 
+    {% endblock %}

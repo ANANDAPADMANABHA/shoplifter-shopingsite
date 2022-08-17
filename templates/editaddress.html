@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="account-area mt-70 mb-70">
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <div class="col-lg-6">
+                <div class="basic-login mb-50">
+<form action="" method="POST">
+                                            {% csrf_token %}
+                                           
+                                        <div class="col-md-12">
+                                            <div class="checkout-form-list">
+                                                <label>First Name <span class="required">*</span></label>
+                                                <input type="text" placeholder="" name="firstname" value="{{address.firstname}}">
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="checkout-form-list">
+                                                <label>Last Name <span class="required">*</span></label>
+                                                <input type="text" placeholder="" name="lastname"value="{{address.lastname}}">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-12">
+                                            <div class="checkout-form-list">
+                                                <label>House name<span class="required">*</span></label>
+                                                <input type="text" placeholder="Street address" name="housename"value="{{address.housename}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="checkout-form-list">
+                                                <label>Locality <span class="required">*</span></label>
+                                                <input type="text" placeholder="Town / City" name="locality"value="{{address.locality}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="checkout-form-list">
+                                                <label>Town / City <span class="required">*</span></label>
+                                                <input type="text" placeholder="Town / City"name="city"value="{{address.city}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="checkout-form-list">
+                                                <label>State / County <span class="required">*</span></label>
+                                                <input type="text" placeholder="" name="state"value="{{address.state}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="checkout-form-list">
+                                                <label>Postcode / Zip <span class="required">*</span></label>
+                                                <input type="text" placeholder="Postcode / Zip" name="pincode"value="{{address.pincode}}">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-12">
+                                            <div class="checkout-form-list">
+                                                <label>Phone <span class="required">*</span></label>
+                                                <input type="text" placeholder="Postcode / Zip" name="phonenumber"value="{{address.phonenumber}}">
+                                            </div>
+                                        </div>
+                                       
+                                        
+                                        <div class="order-button-payment mt-20">
+                                            <button type="submit" class="tp-btn-h1">Add address</button>
+                                            </div>
+
+                                        </form>
+    </div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

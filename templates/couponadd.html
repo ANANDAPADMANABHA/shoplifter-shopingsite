@@ -1,0 +1,57 @@
+{% extends 'adminbase.html' %}
+
+{% block content %}
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header sty-one">
+        <h1 class="text-black"></h1>
+        <ol class="breadcrumb">
+          <li><a href="adminhome">Home</a></li>
+          <li class="sub-bread"><i class="fa fa-angle-right"></i> Forms</li>
+          <li><i class="fa fa-angle-right"></i>New Product</li>
+        </ol>
+      </div>
+      
+      <!-- Main content -->
+      <div class="content">
+        <div class="d-flex justify-content-center">
+          <div class="col-lg-6">
+            <div class="card card-outline">
+              <div class="card-header bg-blue">
+                <h5 class="text-white m-b-0">Add here</h5>
+              </div>
+              <div class="card-body">
+                <form action="" method="POST">
+                  {% csrf_token %}
+                <div class="form-group">
+                  <label for="">coupon_code</label>
+                  <input type="text" class="form-control" id="" placeholder="Name" name="coupon_code" >
+                  {% for message in messages %}
+                                {%if "coupon" in message.tags %}
+                                    <p>{{message}}</p>
+                                 {%endif%}        
+                                {% endfor %}
+                </div>
+                <div class="form-group">
+                  <label for="">discount</label>
+                  <input type="number"   class="form-control" id="" placeholder="Description" name="discount">
+                  {% for message in messages %}
+                                {%if "discount" in message.tags %}
+                                    <p>{{message}}</p>
+                                 {%endif%}        
+                                {% endfor %}
+                </div>
+                
+                
+                <button type="submit" class="btn btn-success">Submit</button>
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      <!-- /.content --> 
+    </div>
+    <!-- /.content-wrapper
+  
+{% endblock %}

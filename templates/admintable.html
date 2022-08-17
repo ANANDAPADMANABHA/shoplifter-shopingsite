@@ -1,0 +1,134 @@
+{% extends 'adminbase.html' %}
+
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <div class="content-header sty-one">
+      <h1 class="text-white">Basic Tables</h1>
+      <ol class="breadcrumb">
+        <li><a href="adminhome">Home</a></li>
+        <li class="sub-bread"><i class="fa fa-angle-right"></i> Tables</li>
+        <li><i class="fa fa-angle-right"></i> Basic Tables</li>
+      </ol>
+    </div>
+    
+        <hr class="m-t-1 m-b-3">
+        
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Username</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">email</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for x in values %}
+
+              {% if x.is_superuser  %} <!-- tp avoid viewing superuser in the users table-->
+              {% else %} <!-- tp avoid viewing superuser in the users table-->
+              <tr>
+                <th scope="row">{{x.id}}</th>
+                <td>{{x.username}}</td>
+                <td>{{x.first_name}}</td>
+                <td>{{x.last_name}}</td>
+                <td>{{x.email}}</td>
+                <!-- <td><a href="blockuser/{{ x.id }}"><button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to delete?')" >block</button></a></td> -->
+                {% if x.is_active %}
+
+                    
+<!-- ---------------------------------------------------------------------------------------------- -->
+
+<td> <form action="{% url 'blockuser' x.id %}"method="POST">
+  {% csrf_token %}
+
+  <a   data-bs-toggle="modal" data-bs-target="#blockuser-{{x.id}}">
+    <button type="" class="btn btn-secondary btn-lg active">BlockUser</button>
+
+  </a>
+  <div class="modal fade" id="blockuser-{{x.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+        </div>
+        <div class="modal-body">
+          
+          <p style="color:#000000 ;">Do you really want to block {{x.username}}</p>
+        </div>
+        <div class="modal-footr d-flex justify-content-between p-3">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          
+          <a href="{% url 'blockuser' x.id %}"><button  class="btn btn-danger " style="background:dark-red;">Confirm</button></a>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  </div>
+</form></td>
+
+<!-- ------------------------------------------------------------------------------------------------- -->
+                  {% else %}
+                  <td> <form action="{% url 'blockuser' x.id %}"method="POST">
+                    {% csrf_token %}
+                  
+                    <a   data-bs-toggle="modal" data-bs-target="#blockuser-{{x.id}}">
+                      <button type="" class="btn btn-secondary btn-lg active">Unblock</button>
+                  
+                    </a>
+                    <div class="modal fade" id="blockuser-{{x.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+                          </div>
+                          <div class="modal-body">
+                            
+                            <p style="color:#000000 ;">Do you really want to Un block {{x.username}}</p>
+                          </div>
+                          <div class="modal-footr d-flex justify-content-between p-3">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            
+                            <a href="{% url 'blockuser' x.id %}"><button  class="btn btn-danger " style="background:dark-red;">Confirm</button></a>
+                          </div>
+                        </div>
+                      </div>
+                      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+                    </div>
+                  </form></td>
+                  {% endif %}
+              </tr>
+              {% endif %}<!-- tp avoid viewing superuser in the users table-->
+              {% endfor %}
+            </tbody>
+          </table>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+            {% if values.has_previous %}
+            
+            <li class="page-item"><a class="page-link" href="?page={{ values.previous_page_number }}">Previous</a></li>
+            
+            {% endif %}
+            <li class="page-item"><a class="page-link" href="#">Page {{values.number}} of {{values.paginator.num_pages}}</a></li>
+            
+            {% if values.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{values.next_page_number}}">Next</a></li>
+            {% endif %}
+        </div>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.content --> 
+  </div>
+  <!-- /.content-wrapper -->
+  
+  {% endblock %}
