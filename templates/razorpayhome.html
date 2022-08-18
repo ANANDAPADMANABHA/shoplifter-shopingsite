@@ -40,7 +40,9 @@
     </div>
     </section>
     <script>
+
         var options = {
+            
             "key": "rzp_test_POGM6k1SyuQXBy", // Enter the Key ID generated from the Dashboard
             "amount": "{{payment.amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
             "currency": "INR",
@@ -63,7 +65,9 @@
             "theme": {
                 "color": "#3399cc"
             }
+            
         };
+        debugger
         var rzp1 = new Razorpay(options);
         rzp1.on('payment.failed', function (response){
                 alert(response.error.code);
