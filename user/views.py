@@ -48,7 +48,7 @@ def home(request):
 
         return render(request,'index.html',{'values':values1,'acc':acc ,'values2':values2,'values3':values3,'banner':banner,'hot':hot,'onsale':onsale,'laps':laps})
     except:
-        return render(request,'index.html')
+        return render(request,'index.html',{'banner':banner})
 
 
 

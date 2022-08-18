@@ -1,6 +1,3 @@
-
-
-
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.core.exceptions import ObjectDoesNotExist
@@ -240,8 +237,7 @@ def couponapply(request):
 
 def cartview(request,total = 0, quantity = 0, cart_items =None,tax = 0,grand_total =0):
 
-    cartclear = CartItem.objects.filter(buy_now = True , user = request.user)
-    cartclear.delete()
+    
     
     if request.user.is_authenticated:
 
@@ -255,7 +251,8 @@ def cartview(request,total = 0, quantity = 0, cart_items =None,tax = 0,grand_tot
 
         
         try:
-            
+            cartclear = CartItem.objects.filter(buy_now = True , user = request.user)
+            cartclear.delete()
             
             cart_items  = CartItem.objects.filter(user = request.user, is_active = True,buy_now = False).order_by("-id")
             
