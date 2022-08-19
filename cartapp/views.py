@@ -80,7 +80,7 @@ def buy_now(request,product_id):
         cart.save()
         return redirect(checkout)
     else :
-        return redirect(signin)
+        return redirect("signinuser")
 
 def add_cartplus(request , product_id):
     total = 0
@@ -1076,6 +1076,7 @@ def razorpayhome(request):
                 })
         
         print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        print(request.user)
         print(payment)
         context = {
             'cart': cart_items, 
@@ -1085,6 +1086,9 @@ def razorpayhome(request):
 
             
 def razorpaysuccess(request):
+    print("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+    print(request.user)
+
     total = 0
     quantity = 0
     cart_items =None
@@ -1101,7 +1105,10 @@ def razorpaysuccess(request):
         else :
             reduction = 0
         #place payment
+        print (request.user)
+        print("-------------------------------------------")
         cart_items  = CartItem.objects.filter(user = request.user, is_active = True)
+        
         if CartItem.objects.filter(user = request.user,buy_now = True) :
                 cart_items  =   CartItem.objects.filter(user = request.user,buy_now = True)
         cart_itemcount = cart_items.count()
