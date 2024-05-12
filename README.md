@@ -21,8 +21,29 @@ Shoplifter is an e-commerce web application built using Django, Python, and SQL 
 
 ```bash
 git clone https://github.com/your_username/shoplifter.git
+```
 
 2.Navigate to the project directory:
 
 ```bash
 cd shoplifter
+```
+
+3.Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+4.Set up the database:
+
+```bash
+python manage.py migrate
+```
+
+5.Run the development server:
+
+```bash
+python manage.py runserver
+```
+
